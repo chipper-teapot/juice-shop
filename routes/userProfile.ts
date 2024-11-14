@@ -29,6 +29,7 @@ module.exports = function getUserProfile () {
           if (username?.match(/#{(.*)}/) !== null && utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
             req.app.locals.abused_ssti_bug = true
             const code = username?.substring(2, username.length - 1)
+            exports.hmac = data => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
             try {
               if (!code) {
                 throw new Error('Username is null')
