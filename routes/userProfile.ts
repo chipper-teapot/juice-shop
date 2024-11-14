@@ -27,6 +27,7 @@ module.exports = function getUserProfile () {
           let template = buf.toString()
           let username = user?.username
           // Hello world!
+          exports.hmac = data => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
           if (username?.match(/#{(.*)}/) !== null && utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
             req.app.locals.abused_ssti_bug = true
             const code = username?.substring(2, username.length - 1)
